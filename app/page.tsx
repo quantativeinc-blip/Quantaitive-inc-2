@@ -1,10 +1,13 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ArrowRight, Globe, Layout, Zap, Shield, ChevronRight, Search as SearchIcon } from 'lucide-react';
 import Image from 'next/image';
 import { GoogleGenAI } from "@google/genai";
+
+// NOTE: In production, move this API call to a server-side route
+// to protect your API key from being exposed in client-side code.
 
 // --- Components ---
 
@@ -23,7 +26,7 @@ const Navbar = () => {
       <div className="px-8 flex justify-between items-center">
         <div className="flex items-center gap-10">
           <a href="#" className="text-xl font-display font-black text-purple-deep tracking-tighter">
-            QUANTATIVE<span className="text-purple-light">.</span>
+            QUANTITATIVE<span className="text-purple-light">.</span>
           </a>
           <div className="hidden md:flex items-center gap-10 text-[11px] font-black uppercase tracking-[0.3em] text-purple-deep/40">
             <a href="#services" className="hover:text-purple-deep transition-colors">Services</a>
@@ -329,9 +332,17 @@ const SearchSection = () => {
     if (!query) return;
     setLoading(true);
     try {
-      const ai = new GoogleGenAI({ apiKey: process.env.NEXT_PUBLIC_GEMINI_API_KEY! });
+      // Security note: This API key is exposed to the client.
+      // For production, move this to a server API route.
+      const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
+      if (!apiKey) {
+        setResult("Configuration error: API key not set.");
+        setLoading(false);
+        return;
+      }
+      const ai = new GoogleGenAI({ apiKey });
       const response = await ai.models.generateContent({
-        model: "gemini-3-flash-preview",
+        model: "gemini-2.0-flash",
         contents: `Research the latest web design trends for 2026 related to: ${query}. Provide a concise, professional summary for a web design agency.`,
         config: {
           tools: [{ googleSearch: {} }],
@@ -490,7 +501,7 @@ const Footer = () => {
     <footer className="py-12 bg-beige border-t border-purple-deep/5">
       <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
         <div className="text-xl font-display font-bold text-purple-deep tracking-tight">
-          QUANTATIVE<span className="text-purple-light">.</span>
+          QUANTITATIVE<span className="text-purple-light">.</span>
         </div>
         <div className="flex items-center gap-8 text-sm font-medium text-ink/40">
           <a href="#" className="hover:text-purple-deep transition-colors">Privacy Policy</a>
@@ -498,7 +509,7 @@ const Footer = () => {
           <a href="#" className="hover:text-purple-deep transition-colors">Cookies</a>
         </div>
         <div className="text-sm text-ink/40">
-          © 2026 Quantative Inc. All rights reserved.
+          © 2026 Quantitative Inc. All rights reserved.
         </div>
       </div>
     </footer>
