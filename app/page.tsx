@@ -55,7 +55,7 @@ const Navbar = () => {
             initial={{ opacity: 0, y: 10, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
-            className="absolute top-full left-0 right-0 mt-4 bg-white/90 backdrop-blur-2xl rounded-3xl border border-purple-deep/5 p-8 md:hidden shadow-2xl"
+            className="absolute top-full left-0 right-0 mt-4 bg-white/60 backdrop-blur-xl rounded-3xl border border-purple-deep/10 p-8 md:hidden shadow-2xl"
           >
             <div className="flex flex-col gap-6 text-sm font-bold uppercase tracking-widest text-purple-deep/60">
               <a href="#services" onClick={() => setMobileMenuOpen(false)} className="hover:text-purple-deep">Services</a>
