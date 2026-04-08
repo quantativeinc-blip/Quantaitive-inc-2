@@ -5,3 +5,6 @@ coverage/
 *.log
 .env*
 !.env.example
+.windsurf/workflows/project-manager.md
+.windsurf/workflows/token-sniper.md
+.windsurf/workflows/Website-clone-adapt.md
